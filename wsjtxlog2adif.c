@@ -32,7 +32,7 @@ For more information, please refer to <https://unlicense.org>
 #include <ctype.h>
 
 
-#define VERSION "20240327.0"
+#define VERSION "20240328.0"
 
 char *yourcall, *yourgrid;
 
@@ -235,10 +235,20 @@ void wsjtxlog2adif(FILE *fpin, FILE *fpout)
         fprintf(fpout, "<TIME_ON:%ld>%s ", strlen(p), p);
         p = strsep(&s, ",\r\n");
         removeChar(p, '-');
-        fprintf(fpout, "<QSO_DATE_OFF:%ld>%s ", strlen(p), p);
+
+        if (strlen(p) > 0)
+        {
+            fprintf(fpout, "<QSO_DATE_OFF:%ld>%s ", strlen(p), p);
+        }
+
         p = strsep(&s, ",\r\n");
-        removeChar(p, ':');
-        fprintf(fpout, "<TIME_OFF:%ld>%s ", strlen(p), p);
+
+        if (strlen(p) > 0)
+        {
+            removeChar(p, ':');
+            fprintf(fpout, "<TIME_OFF:%ld>%s ", strlen(p), p);
+        }
+
         p = strsep(&s, ",\r\n");
         fprintf(fpout, "<CALL:%ld>%s ", strlen(p), p);
         p = strsep(&s, ",\r\n");
@@ -257,14 +267,32 @@ void wsjtxlog2adif(FILE *fpin, FILE *fpout)
         fprintf(fpout, "%s ", mode(p));
 
         p = strsep(&s, ",\r\n");
-        fprintf(fpout, "<RST_SENT:%ld>%s ", strlen(p), p);
+
+        if (strlen(p) > 0)
+        {
+            fprintf(fpout, "<RST_SENT:%ld>%s ", strlen(p), p);
+        }
 
         p = strsep(&s, ",\r\n");
-        fprintf(fpout, "<RST_RCVD:%ld>%s ", strlen(p), p);
+
+        if (strlen(p) > 0)
+        {
+            fprintf(fpout, "<RST_RCVD:%ld>%s ", strlen(p), p);
+        }
+
         p = strsep(&s, ",\r\n");
-        fprintf(fpout, "<POWER:%ld>%s ", strlen(p), p);
+
+        if (strlen(p) > 0)
+        {
+            fprintf(fpout, "<POWER:%ld>%s ", strlen(p), p);
+        }
+
         p = strsep(&s, ",\r\n");
-        fprintf(fpout, "<COMMENT:%ld>%s ", strlen(p), p);
+
+        if (strlen(p) > 0)
+        {
+            fprintf(fpout, "<COMMENT:%ld>%s ", strlen(p), p);
+        }
 
         fprintf(fpout, "<EOR>\n");
     }
