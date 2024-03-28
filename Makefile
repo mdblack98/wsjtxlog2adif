@@ -1,13 +1,25 @@
+UNAME_S := $(shell uname -s)
+
+# Define the target executable based on detected OS
+ifeq ($(UNAME_S),Linux)
+    TARGET = wsjtxlog2adif
+endif
+ifeq ($(UNAME_S),Darwin)
+    TARGET = wsjtxlog2adif
+endif
+ifeq ($(findstring MINGW,$(UNAME_S)),MINGW)
+    TARGET = wsjtxlog2adif.exe
+endif
+ifeq ($(findstring CYGWIN,$(UNAME_S)),CYGWIN)
+    TARGET = wsjtxlog2adif.exe
+endif
+
 # Define compiler and compiler flag variables
 CC = gcc
 CFLAGS = -g
 
 # Define the target executable
-ifeq ($(OS),Windows_NT)
-	TARGET = wsjtxlog2adif.exe
-else
-	TARGET = wsjtxlog2adif
-endif
+
 
 # Define the source file
 SRC = wsjtxlog2adif.c

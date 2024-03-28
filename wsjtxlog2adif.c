@@ -304,8 +304,11 @@ int main(int argc, char *argv[])
 
     if (argc != 5)
     {
-        fprintf(stderr, "Version 1.0\n");
-        fprintf(stderr, "Usage: %s infile outfile yourcall yourgrid\n", argv[0]);
+        char *program;
+        fprintf(stderr, "Version %s\n", VERSION);
+        if (strstr(argv[0],"/")) program = strrchr(argv[0],'/')+1;
+        if (strstr(argv[0],"\\")) program = strrchr(argv[0],'\\')+1;
+        fprintf(stderr, "Usage: %s infile outfile yourcall yourgrid\n", program);
         exit(1);
     }
 
