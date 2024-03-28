@@ -3,7 +3,11 @@ CC = gcc
 CFLAGS = -g
 
 # Define the target executable
-TARGET = wsjtxlog2adif
+ifeq ($(OS),Windows_NT)
+	TARGET = wsjtxlog2adif.exe
+else
+	TARGET = wsjtxlog2adif
+endif
 
 # Define the source file
 SRC = wsjtxlog2adif.c
